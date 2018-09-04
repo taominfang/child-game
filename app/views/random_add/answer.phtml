@@ -1,0 +1,12 @@
+<p>
+    <?= $this->message ?>
+</p>
+<p>
+    Your have <?=$this->rest?> questions;
+</p>
+
+<? if ($this->rest >=0) { ?>
+<a href="new_question">New Question</a>
+<? } else { ?>
+    <p>You are done!</p>
+<? }  ?>
