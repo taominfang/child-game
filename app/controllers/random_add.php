@@ -3,6 +3,7 @@
 class Random_addController extends BasicController
 {
 
+    var $timeoutTime=50;
 
     public function pre_filter(&$methodName = null)
     {
@@ -12,7 +13,7 @@ class Random_addController extends BasicController
         $this->view->addInternalJs("jquery-ui-1.8.17.custom.min.js");
         $this->view->addInternalCss("ui-lightness/jquery-ui-1.8.17.custom.css");
 
-
+        $this->set("timeout_time",$this->timeoutTime);
     }
 
     public function index()
@@ -69,6 +70,14 @@ class Random_addController extends BasicController
             $this->set("message", "Good!, Your answer is correct");
             $_SESSION["c"]=$_SESSION["c"]-1;
         }
+        $this->set("rest",$_SESSION["c"]);
+    }
+    public function timeout()
+    {
+
+
+        $_SESSION["c"]=$_SESSION["c"]+2;
+
         $this->set("rest",$_SESSION["c"]);
     }
 

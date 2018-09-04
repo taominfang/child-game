@@ -1,7 +1,28 @@
-<form action="answer" method="post">
+<script type="text/javascript" >
+    $(document).ready(function() {
+        setInterval(mTimer,1000);
+    });
+
+    var start=<?= $this->timeout_time?>;
+    function mTimer() {
+        $("#restSeconds").text(start);
+        start=start-1;
+        if(start<20){
+            $("#restSeconds").css('color', 'red');
+        }
+        if(start<0){
+            window.location.href="/random_add/timeout"
+        }
+    }
+</script>
+
+<form action="/random_add/answer" method="post">
     <input type="hidden" name="v1" value="<?= $this->v1 ?>">
     <input type="hidden" name="v2" value="<?= $this->v2 ?>">
     <?= $this->v1 ?>+<?= $this->v2 ?> = <input type="text" name="result">
     </p>
     <input type="submit">
 </form>
+<p>
+    You have <label id="restSeconds" ><?= $this->timeout_time?></label>
+</p>

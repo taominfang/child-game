@@ -1,12 +1,9 @@
 <p>
-    <?= $this->message ?>
+    You did not answer question under <?= $this->timeout_time?> seconds!!
 </p>
 <p>
     Your have <?=$this->rest?> questions;
 </p>
 
-<?php if ($this->rest >= 0){ ?>
+
 <a href="/random_add/new_question">New Question</a>
-<?php } else { ?>
-    <p>You are done!</p>
-<?php }  ?>
