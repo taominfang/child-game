@@ -52,6 +52,8 @@ class IndexController extends BasicController
                 $qs = intval($_POST['question_size']);
                 if ($qs > 1) {
                     $_SESSION["c"] = $qs;
+                    $_SESSION["rest_time"] = 0;
+
                 }
                 $this->redirect("/index");
             } else {

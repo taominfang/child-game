@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(mTimer, 1000);
+    });
+
+    var start =<?= $this->rest_time?>;
+
+    function mTimer() {
+        $("#restSeconds").text(start);
+        start = start - 1;
+        if (start < 20) {
+            $("#restSeconds").css('color', 'red');
+        }
+        if (start < 0) {
+            window.location.href = "/random_add/rest_end"
+        }
+    }
+</script>
+<div align="center" style="font-size: 300%">
+
+
+    <h1>
+        You have <label id="restSeconds"><?= $this->timeout_time ?></label> seconds
+    </h1>
+
+    <h1>
+        <a href="/random_add/rest_end"> End Rest</a>
+    </h1>
+
+
+
+</div>
+
