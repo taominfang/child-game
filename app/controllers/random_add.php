@@ -3,7 +3,7 @@
 class Random_addController extends BasicController
 {
 
-    var $timeoutTime = 50;
+    var $timeoutTime = 70;
 
     var $one_rest_time = 10;
 
