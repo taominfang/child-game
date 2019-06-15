@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         setInterval(mTimer, 1000);
+        document.getElementById("result").focus();
     });
 
     var start =<?= $this->timeout_time?>;
@@ -30,7 +31,7 @@
         <input type="hidden" name="v1" value="<?= $this->v1 ?>">
         <input type="hidden" name="v2" value="<?= $this->v2 ?>">
         <input type="hidden" name="op" value="<?= $this->op ?>">
-        <?= $this->v1 ?><?= $this->op ?><?= $this->v2 ?> = <input type="text" name="result" autocomplete="off">
+        <?= $this->v1 ?><?= $this->op ?><?= $this->v2 ?> = <input type="text" id="result" name="result" autocomplete="off">
         </p>
         <input type="submit">
     </form>
