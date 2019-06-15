@@ -15,6 +15,10 @@
         }
     }
 </script>
+<? if (isset($this->error_message)): ?><p style="color: #cd0a0a"><?= $this->error_message ?></p><? endif; ?>
+<p>
+    You have <label><?= $this->rest?></label> Questions
+</p>
 <p>
     You have <label id="restSeconds" ><?= $this->timeout_time?></label> seconds
 </p>
@@ -25,7 +29,8 @@
 <form action="/random_add/answer" method="post">
     <input type="hidden" name="v1" value="<?= $this->v1 ?>">
     <input type="hidden" name="v2" value="<?= $this->v2 ?>">
-    <?= $this->v1 ?>+<?= $this->v2 ?> = <input type="text" name="result">
+    <input type="hidden" name="op" value="<?= $this->op ?>">
+    <?= $this->v1 ?><?= $this->op ?><?= $this->v2 ?> = <input type="text" name="result" autocomplete="off">
     </p>
     <input type="submit">
 </form>

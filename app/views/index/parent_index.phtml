@@ -1,0 +1,22 @@
+<? if (isset($this->error_message)): ?><p style="color: #cd0a0a"><?= $this->error_message ?></p><? endif; ?>
+<div>
+    <form action="/index/parent_control" method="post">
+        <table>
+            <tr>
+                <td>Set Question size:<input type="text" name="question_size"/></td>
+                <td><input type="radio" name="op_type" value="question_size"></td>
+            </tr>
+            <tr>
+                <td>Pause</td>
+                <td><input type="radio" name="op_type" value="pause" checked="checked"></td>
+            </tr>
+            <tr>
+                <td>Password: <input type="password" name="password" autocomplete="off" readonly
+                                     onfocus="this.removeAttribute('readonly');"/></td>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
