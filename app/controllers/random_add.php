@@ -55,10 +55,10 @@ class Random_addController extends BasicController
             //new question
             $debug=false;
             if (!$debug){
-                $min = 50;
-                $max = 1100;
+                $min = 100;
+                $max = 1150;
                 $total = rand($min, $max);
-                $v1 = rand($min - 10, $total);
+                $v1 = rand($min - 50, $total);
             }
             else{
                 $total=2;
