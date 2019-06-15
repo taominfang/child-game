@@ -118,7 +118,7 @@ class Random_addController extends BasicController
             $_SESSION["v2"] = $v2;
             $_SESSION["op"] = $op;
             $_SESSION["wrong"] = $v1 . $op . $v2 . " is NOT " . $result . " please do again";
-            $_SESSION["c"] = $_SESSION["c"] + 2;
+            $_SESSION["c"] = $_SESSION["c"] + 1;
 
         } else {
             $_SESSION["v1"] = $v1;
