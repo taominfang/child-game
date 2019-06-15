@@ -53,7 +53,7 @@ class Random_addController extends BasicController
             $this->set("timeout_time", $timeout);
         } else {
             //new question
-            $debug=true;
+            $debug=false;
             if (!$debug){
                 $min = 50;
                 $max = 1100;
