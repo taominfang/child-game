@@ -1,37 +1,40 @@
-<script type="text/javascript" >
-    $(document).ready(function() {
-        setInterval(mTimer,1000);
+<script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(mTimer, 1000);
     });
 
-    var start=<?= $this->timeout_time?>;
+    var start =<?= $this->timeout_time?>;
+
     function mTimer() {
         $("#restSeconds").text(start);
-        start=start-1;
-        if(start<20){
+        start = start - 1;
+        if (start < 20) {
             $("#restSeconds").css('color', 'red');
         }
-        if(start<0){
-            window.location.href="/random_add/timeout"
+        if (start < 0) {
+            window.location.href = "/random_add/timeout"
         }
     }
 </script>
-<? if (isset($this->error_message)): ?><p style="color: #cd0a0a"><?= $this->error_message ?></p><? endif; ?>
-<p>
-    You have <label><?= $this->rest?></label> Questions
-</p>
-<p>
-    You have <label id="restSeconds" ><?= $this->timeout_time?></label> seconds
-</p>
-<br/>
-<br/>
-<br/>
-<br/>
-<form action="/random_add/answer" method="post">
-    <input type="hidden" name="v1" value="<?= $this->v1 ?>">
-    <input type="hidden" name="v2" value="<?= $this->v2 ?>">
-    <input type="hidden" name="op" value="<?= $this->op ?>">
-    <?= $this->v1 ?><?= $this->op ?><?= $this->v2 ?> = <input type="text" name="result" autocomplete="off">
+<div align="center" style="font-size: 300%">
+    <? if (isset($this->error_message)): ?><p style="color: #cd0a0a"><?= $this->error_message ?></p><? endif; ?>
+    <p>
+        You have <label><?= $this->rest ?></label> Questions
     </p>
-    <input type="submit">
-</form>
+    <p>
+        You have <label id="restSeconds"><?= $this->timeout_time ?></label> seconds
+    </p>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <form action="/random_add/answer" method="post">
+        <input type="hidden" name="v1" value="<?= $this->v1 ?>">
+        <input type="hidden" name="v2" value="<?= $this->v2 ?>">
+        <input type="hidden" name="op" value="<?= $this->op ?>">
+        <?= $this->v1 ?><?= $this->op ?><?= $this->v2 ?> = <input type="text" name="result" autocomplete="off">
+        </p>
+        <input type="submit">
+    </form>
+</div>
 
