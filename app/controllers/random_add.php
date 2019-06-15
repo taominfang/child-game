@@ -51,10 +51,10 @@ class Random_addController extends BasicController
             $this->set("timeout_time", $timeout);
         } else {
             //new question
-            $min = 2;
-            $max = 20;
+            $min = 50;
+            $max = 1100;
             $total = rand($min, $max);
-            $v1 = rand($min - 1, $total);
+            $v1 = rand($min - 10, $total);
 
 
             if (rand() % 2 == 0) {
