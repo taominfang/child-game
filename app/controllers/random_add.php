@@ -37,7 +37,7 @@ class Random_addController extends BasicController
             $this->set("error_message", $_SESSION["wrong"]);
             $_SESSION["start_time"] = time();
             unset($_SESSION["wrong"]);
-            $_SESSION["rest_time"]=$_SESSION["rest_time"]+$this->timeoutTime;
+            $_SESSION["rest_time"] = $_SESSION["rest_time"] + $this->timeoutTime;
             $this->set("timeout_time", $_SESSION["rest_time"]);
         } else if (isset($_SESSION["start_time"])) {
             //user refresh page
@@ -45,7 +45,7 @@ class Random_addController extends BasicController
             $v2 = $_SESSION["v2"];
             $op = $_SESSION["op"];
 
-            $_SESSION["rest_time"]=$_SESSION["rest_time"] - (time() - $_SESSION["start_time"]);
+            $_SESSION["rest_time"] = $_SESSION["rest_time"] - (time() - $_SESSION["start_time"]);
 
             $this->set("timeout_time", $_SESSION["rest_time"]);
         } else {
@@ -75,7 +75,7 @@ class Random_addController extends BasicController
             $_SESSION["v2"] = $v2;
             $_SESSION["op"] = $op;
             $_SESSION["start_time"] = time();
-            $_SESSION["rest_time"]=$_SESSION["rest_time"]+$this->timeoutTime;
+            $_SESSION["rest_time"] = $_SESSION["rest_time"] + $this->timeoutTime;
             $this->set("timeout_time", $_SESSION["rest_time"]);
         }
 
@@ -168,9 +168,22 @@ class Random_addController extends BasicController
         $this->set('real_size', $_SESSION["total_finish"]);
         $this->set('wrong_size', $_SESSION["total_wrong"]);
 
-        $rest=10*$_SESSION["rest_time"];
-        $this->set('total_rest_second',$_SESSION["rest_time"] );
-        $this->set('video_minutes',$rest/60+1);
+        $video = 10 * $_SESSION["rest_time"] / 60 + 1;
+
+        $maxVideo = intval(2 * $_SESSION["question_size"]);
+        $minVideo = $_SESSION["question_size"];
+
+        if ($video > $maxVideo) {
+            $video = $maxVideo;
+        }
+
+        if ($video < $minVideo) {
+            $video = $minVideo;
+        }
+
+
+        $this->set('total_rest_second', $_SESSION["rest_time"]);
+        $this->set('video_minutes', $video);
 
 
     }
