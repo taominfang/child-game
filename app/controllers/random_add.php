@@ -3,7 +3,7 @@
 class Random_addController extends BasicController
 {
 
-    var $timeoutTime = 70;
+    var $timeoutTime = 50;
 
     var $one_rest_time = 10;
 
@@ -15,11 +15,6 @@ class Random_addController extends BasicController
         $this->view->addInternalJs("jquery-ui-1.8.17.custom.min.js");
         $this->view->addInternalCss("ui-lightness/jquery-ui-1.8.17.custom.css");
 
-
-        if (!isset($_SESSION["c"]) || intval($_SESSION["c"]) <= 0) {
-            $this->redirect("/index/parent_index");
-            return false;
-        }
 
     }
 
@@ -42,30 +37,30 @@ class Random_addController extends BasicController
             $this->set("error_message", $_SESSION["wrong"]);
             $_SESSION["start_time"] = time();
             unset($_SESSION["wrong"]);
-            $this->set("timeout_time", $this->timeoutTime);
+            $_SESSION["rest_time"]=$_SESSION["rest_time"]+$this->timeoutTime;
+            $this->set("timeout_time", $_SESSION["rest_time"]);
         } else if (isset($_SESSION["start_time"])) {
             //user refresh page
             $v1 = $_SESSION["v1"];
             $v2 = $_SESSION["v2"];
             $op = $_SESSION["op"];
 
-            $timeout = $this->timeoutTime - (intval(time()) - intval($_SESSION["start_time"]));
-            $this->set("timeout_time", $timeout);
+            $_SESSION["rest_time"]=$_SESSION["rest_time"] - (time() - $_SESSION["start_time"]);
+
+            $this->set("timeout_time", $_SESSION["rest_time"]);
         } else {
             //new question
-            $debug=false;
-            if (!$debug){
+            $_SESSION["total_finish"] = $_SESSION["total_finish"] + 1;
+            $debug = true;
+            if (!$debug) {
                 $min = 100;
                 $max = 1150;
                 $total = rand($min, $max);
                 $v1 = rand($min - 50, $total);
+            } else {
+                $total = 2;
+                $v1 = 1;
             }
-            else{
-                $total=2;
-                $v1=1;
-            }
-
-
 
             if (rand() % 2 == 0) {
                 $op = "+";
@@ -80,14 +75,15 @@ class Random_addController extends BasicController
             $_SESSION["v2"] = $v2;
             $_SESSION["op"] = $op;
             $_SESSION["start_time"] = time();
-            $this->set("timeout_time", $this->timeoutTime);
+            $_SESSION["rest_time"]=$_SESSION["rest_time"]+$this->timeoutTime;
+            $this->set("timeout_time", $_SESSION["rest_time"]);
         }
 
         $this->set('v1', $v1);
         $this->set('v2', $v2);
         $this->set('op', $op);
         $this->set('rest', $_SESSION["c"]);
-        $this->set('rest_time', $_SESSION["rest_time"]);
+
 
     }
 
@@ -111,6 +107,13 @@ class Random_addController extends BasicController
             $a = $v1 - $v2;
         }
 
+        $spend = time() - $_SESSION["start_time"];
+
+        $_SESSION["rest_time"] = $_SESSION["rest_time"] - $spend;
+
+        if ($_SESSION["rest_time"] < 0) {
+            $_SESSION["rest_time"] = 0;
+        }
 
         if ($a != $result) {
 
@@ -119,6 +122,7 @@ class Random_addController extends BasicController
             $_SESSION["op"] = $op;
             $_SESSION["wrong"] = $v1 . $op . $v2 . " is NOT " . $result . " please do again";
             $_SESSION["c"] = $_SESSION["c"] + 1;
+            $_SESSION["total_wrong"] = $_SESSION["total_wrong"] + 1;
 
         } else {
             $_SESSION["v1"] = $v1;
@@ -132,10 +136,16 @@ class Random_addController extends BasicController
 
         }
 
+        error_log("answer c:" . $_SESSION["c"]);
         //any way, rest the timeout
         unset($_SESSION["start_time"]);
 
-        $this->redirect("/random_add/new_question");
+        if ($_SESSION["c"] <= 0) {
+            $this->redirect("/random_add/done");
+        } else {
+            $this->redirect("/random_add/new_question");
+        }
+
     }
 
     public function timeout()
@@ -151,47 +161,18 @@ class Random_addController extends BasicController
     }
 
 
-    private function recalculate_rest(){
-
-        if (isset($_SESSION["start_rest"])){
-            $using=time()-$_SESSION["start_rest"];
-
-            $rest=$_SESSION["rest_time"]-$using;
-
-            if($rest<=0){
-                $rest=0;
-            }
-            $_SESSION["rest_time"]=$rest+1;
-        }
-
-    }
-
-    public function rest()
-    {
-        $this->recalculate_rest();
-
-        if (!isset($_SESSION["at_rest_lock_question_time"])){
-            //first , lock the question rest time
-            $_SESSION["at_rest_lock_question_time"]=time()-$_SESSION["start_time"];
-        }
-
-        $_SESSION["start_rest"]=time();
-
-        $this->set('rest_time', $_SESSION["rest_time"]);
-
-    }
-
-    public function rest_end()
+    public function done()
     {
 
-        $this->recalculate_rest();
+        $this->set('give_size', $_SESSION["question_size"]);
+        $this->set('real_size', $_SESSION["total_finish"]);
+        $this->set('wrong_size', $_SESSION["total_wrong"]);
+
+        $rest=10*$_SESSION["rest_time"];
+        $this->set('total_rest_second',$_SESSION["rest_time"] );
+        $this->set('video_minutes',$rest/60+1);
 
 
-        //reset start_time
-        $_SESSION["start_time"]=time()-$_SESSION["at_rest_lock_question_time"];
-        unset($_SESSION["start_rest"]);
-        unset($_SESSION["at_rest_lock_question_time"]);
-        $this->redirect("/random_add/new_question");
     }
 
 }

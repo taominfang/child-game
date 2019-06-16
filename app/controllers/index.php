@@ -52,7 +52,13 @@ class IndexController extends BasicController
                 $qs = intval($_POST['question_size']);
                 if ($qs > 1) {
                     $_SESSION["c"] = $qs;
-                    $_SESSION["rest_time"] = 0;
+                    $_SESSION["rest_time"] = 20;
+                    $_SESSION["question_size"] = $qs;
+                    $_SESSION["total_finish"] = 0;
+                    $_SESSION["total_wrong"] = 0;
+
+                    unset($_SESSION["start_time"]);
+                    unset($_SESSION["wrong"]);
 
                 }
                 $this->redirect("/index");
