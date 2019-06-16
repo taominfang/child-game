@@ -139,7 +139,7 @@ class Random_addController extends BasicController
             $_SESSION["c"] = $_SESSION["c"] + 1;
             $_SESSION["total_wrong"] = $_SESSION["total_wrong"] + 1;
 
-            write_error_question(sprintf("<simple_add><v1>%s</v1><op>%s</op><v2>%s</v2><e>%s</e></simple_add>",$v1,$op,$v2,$result));
+            $this->write_error_question(sprintf("<simple_add><v1>%s</v1><op>%s</op><v2>%s</v2><e>%s</e></simple_add>",$v1,$op,$v2,$result));
 
         } else {
             $_SESSION["v1"] = $v1;
