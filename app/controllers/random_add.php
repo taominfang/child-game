@@ -7,6 +7,17 @@ class Random_addController extends BasicController
 
     var $one_rest_time = 10;
 
+    private function write_error_question($message)
+    {
+
+        $fp = fopen('/var/quetion_error/adding.txt', 'wa');
+        if ($fp !== false) {
+            fwrite($fp, $message . "\n");
+            fclose($fp);
+        }
+
+    }
+
     public function pre_filter(&$methodName = null)
     {
         parent::pre_filter($methodName);
@@ -123,6 +134,8 @@ class Random_addController extends BasicController
             $_SESSION["wrong"] = $v1 . $op . $v2 . " is NOT " . $result . " please do again";
             $_SESSION["c"] = $_SESSION["c"] + 1;
             $_SESSION["total_wrong"] = $_SESSION["total_wrong"] + 1;
+
+            write_error_question(sprintf("<simple_add><v1>%s</v1><op>%s</op><v2>%s</v2><e>%s</e></simple_add>",$v1,$op,$v2,$result));
 
         } else {
             $_SESSION["v1"] = $v1;
