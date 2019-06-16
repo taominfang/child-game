@@ -51,7 +51,7 @@ class Random_addController extends BasicController
         } else {
             //new question
             $_SESSION["total_finish"] = $_SESSION["total_finish"] + 1;
-            $debug = true;
+            $debug = false;
             if (!$debug) {
                 $min = 100;
                 $max = 1150;
