@@ -10,7 +10,11 @@ class Random_addController extends BasicController
     private function write_error_question($message)
     {
 
-        $fp = fopen('/var/quetion_error/adding.txt', 'wa');
+        $fn="/var/quetion_error/adding.txt";
+
+        error_log(sprintf("append[%s] to [%s]",$message,$fn));
+
+        $fp = fopen($fn, 'wa');
         if ($fp !== false) {
             fwrite($fp, $message . "\n");
             fclose($fp);
