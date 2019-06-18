@@ -3,7 +3,7 @@
 class Random_addController extends BasicController
 {
 
-    var $timeoutTime = 50;
+    var $timeoutTime = 45;
 
     var $one_rest_time = 10;
 
@@ -14,7 +14,7 @@ class Random_addController extends BasicController
 
         error_log(sprintf("append[%s] to [%s]",$message,$fn));
 
-        $fp = fopen($fn, 'wa');
+        $fp = @fopen($fn, 'wa');
         if ($fp !== false) {
             fwrite($fp, $message . "\n");
             fclose($fp);
@@ -68,10 +68,10 @@ class Random_addController extends BasicController
             $_SESSION["total_finish"] = $_SESSION["total_finish"] + 1;
             $debug = false;
             if (!$debug) {
-                $min = 100;
-                $max = 1150;
+                $min = 200;
+                $max = 1250;
                 $total = rand($min, $max);
-                $v1 = rand($min - 50, $total);
+                $v1 = rand($min - 150, $total);
             } else {
                 $total = 2;
                 $v1 = 1;
