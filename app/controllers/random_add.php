@@ -3,9 +3,9 @@
 class Random_addController extends BasicController
 {
 
-    var $timeoutTime = 45;
+    var $timeoutTime = 35;
 
-    var $one_rest_time = 10;
+    var $one_rest_time = 5;
 
     private function write_error_question($message)
     {
@@ -69,7 +69,7 @@ class Random_addController extends BasicController
             $debug = false;
             if (!$debug) {
                 $min = 200;
-                $max = 1250;
+                $max = 1850;
                 $total = rand($min, $max);
                 $v1 = rand($min - 150, $total);
             } else {
