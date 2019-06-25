@@ -169,7 +169,7 @@ class Random_addController extends BasicController
     {
 
 
-        $_SESSION["c"] = $_SESSION["c"] + 2;
+        $_SESSION["c"] = $_SESSION["c"] + 1;
 
         $_SESSION["wrong"] = "You did not answer question in " . $this->timeoutTime . " seconds!!";
         //any way, rest the timeout
