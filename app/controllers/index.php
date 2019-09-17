@@ -3,7 +3,7 @@
 class IndexController extends BasicController
 {
 
-    private $password = "4455";
+    private $password = "3456";
 
     public function index()
     {
